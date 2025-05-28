@@ -1,6 +1,6 @@
 {
   description =
-    "GH-Recon: Fetches and aggregates public OSINT data for a GitHub user, leveraging Go and the GitHub API.";
+    "Retrieves and aggregates public OSINT data about a GitHub user using Go and the GitHub API. Finds hidden emails in commit history, previous usernames, friends, other GitHub accounts, and more.";
 
   inputs = { nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; };
 
@@ -13,7 +13,7 @@
         (system: f system (import nixpkgs { inherit system; }));
 
       pname = "gh-recon";
-      version = "0.2.1";
+      version = "1.2.0";
 
       ldflags = [ "-s" "-w" ];
 
@@ -28,7 +28,7 @@
 
           meta = with pkgs.lib; {
             description =
-              "Fetches and aggregates public OSINT data for a GitHub user.";
+              "Retrieves and aggregates public OSINT data about a GitHub user using Go and the GitHub API. Finds hidden emails in commit history, previous usernames, friends, other GitHub accounts, and more.";
             homepage = "https://github.com/anotherhadi/gh-recon";
             platforms = platforms.unix;
           };
