@@ -10,7 +10,7 @@ type EmailResult struct {
 	Name         string
 	Email        string
 	Username     string
-	Occurences   int
+	Occurrences   int
 	FirstFoundIn string
 }
 
@@ -52,14 +52,14 @@ func (r Recon) Email(email string) (response []EmailResult) {
 						Name:       name,
 						Email:      email,
 						Username:   login,
-						Occurences: 1,
+						Occurrences: 1,
 						FirstFoundIn: item.GetRepository().Owner.GetLogin() + "/" + item.GetRepository().
 							GetName(),
 					}
 					results[name+" - "+email+" - "+login] = author
 				} else {
 					result := results[name+" - "+email+" - "+login]
-					result.Occurences++
+					result.Occurrences++
 					results[name+" - "+email+" - "+login] = result
 				}
 			}
@@ -85,7 +85,7 @@ func (r Recon) Email(email string) (response []EmailResult) {
 		r.PrintInfo(
 			"Author",
 			result.Name+" - "+result.Email+" - @"+result.Username,
-			"first from "+result.FirstFoundIn+" (x"+fmt.Sprint(result.Occurences)+")",
+			"first from "+result.FirstFoundIn+" (x"+fmt.Sprint(result.Occurrences)+")",
 		)
 		response = append(response, result)
 	}
