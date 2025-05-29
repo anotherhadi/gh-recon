@@ -9,7 +9,7 @@ import (
 type CommitsResult struct {
 	Name         string
 	Email        string
-	Occurences   int
+	Occurrences   int
 	FirstFoundIn string
 }
 
@@ -46,14 +46,14 @@ func (r Recon) Commits(username string) (response []CommitsResult) {
 					author := CommitsResult{
 						Name:       name,
 						Email:      email,
-						Occurences: 1,
+						Occurrences: 1,
 						FirstFoundIn: item.GetRepository().Owner.GetLogin() + "/" + item.GetRepository().
 							GetName(),
 					}
 					results[name+" - "+email] = author
 				} else {
 					result := results[name+" - "+email]
-					result.Occurences++
+					result.Occurrences++
 					results[name+" - "+email] = result
 				}
 			}
@@ -79,7 +79,7 @@ func (r Recon) Commits(username string) (response []CommitsResult) {
 		r.PrintInfo(
 			"Author",
 			result.Name+" - "+result.Email,
-			"first from "+result.FirstFoundIn+" (x"+fmt.Sprint(result.Occurences)+")",
+			"first from "+result.FirstFoundIn+" (x"+fmt.Sprint(result.Occurrences)+")",
 		)
 		response = append(response, result)
 	}
