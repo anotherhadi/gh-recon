@@ -22,6 +22,7 @@ func main() {
 	var excludeRepos string
 	var maxRepoSize int
 	var refresh bool
+	var showSource bool
 
 	// FLAGS
 	flag.StringVarP(&username, "username", "u", "", "GitHub username to analyze")
@@ -54,13 +55,20 @@ func main() {
 		"Refresh the cache (only for deep scan)",
 	)
 	flag.BoolVarP(
+		&showSource,
+		"show-source",
+		"s",
+		false,
+		"Show where the information (authors, emails, etc) were found (only for deep scan)",
+	)
+	flag.BoolVarP(
 		&onlyCommitsLeak,
 		"only-commits",
 		"c",
 		false,
 		"Display only commits with author info",
 	)
-	flag.BoolVarP(&silent, "silent", "s", false, "Suppress all non-essential output")
+	flag.BoolVarP(&silent, "silent", "S", false, "Suppress all non-essential output")
 	flag.StringVarP(&jsonFile, "json", "j", "", "Write results to specified JSON file")
 
 	// FLAGS SETTINGS
@@ -81,6 +89,7 @@ func main() {
 		Silent:      silent,
 		JsonFile:    jsonFile,
 		MaxRepoSize: maxRepoSize,
+		ShowSource:  showSource,
 	}
 
 	// CHECK FLAGS

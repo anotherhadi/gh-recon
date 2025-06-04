@@ -76,11 +76,18 @@ func (r Recon) Commits(username string) (response []CommitsResult) {
 	}
 
 	for _, result := range results {
-		r.PrintInfo(
-			"Author",
-			result.Name+" - "+result.Email,
-			"first from "+result.FirstFoundIn+" (x"+fmt.Sprint(result.Occurences)+")",
-		)
+		if r.ShowSource {
+			r.PrintInfo(
+				"Author",
+				result.Name+" - "+result.Email,
+				"first from "+result.FirstFoundIn+" (x"+fmt.Sprint(result.Occurences)+")",
+			)
+		} else {
+			r.PrintInfo(
+				"Author",
+				result.Name+" - "+result.Email,
+			)
+		}
 		response = append(response, result)
 	}
 	if len(results) == 0 {

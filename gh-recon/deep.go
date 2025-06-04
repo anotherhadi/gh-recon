@@ -267,11 +267,18 @@ func (r Recon) Deep(username, excludeRepos string, refresh bool) (response DeepR
 		}
 	}
 	for _, author := range authorOccurrences {
-		r.PrintInfo(
-			"Author",
-			author.Name+" <"+author.Email+">",
-			"found in:"+strings.Join(author.FoundIn, ", "),
-		)
+		if r.ShowSource {
+			r.PrintInfo(
+				"Author",
+				author.Name+" - "+author.Email,
+				"found in:"+strings.Join(author.FoundIn, ", "),
+			)
+		} else {
+			r.PrintInfo(
+				"Author",
+				author.Name+" - "+author.Email,
+			)
+		}
 	}
 
 	r.PrintInfo("INFO", "Now searching for emails in cloned repositories, this may take a while...")
@@ -286,7 +293,11 @@ func (r Recon) Deep(username, excludeRepos string, refresh bool) (response DeepR
 	} else {
 		r.PrintInfo("INFO", "Found emails:")
 		for _, email := range emails {
-			r.PrintInfo("Email", email.Email, "found in:"+strings.Join(email.FoundIn, ", "))
+			if r.ShowSource {
+				r.PrintInfo("Email", email.Email, "found in:"+strings.Join(email.FoundIn, ", "))
+			} else {
+				r.PrintInfo("Email", email.Email)
+			}
 		}
 	}
 

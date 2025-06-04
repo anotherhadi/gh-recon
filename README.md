@@ -91,8 +91,9 @@ gh-recon --username TARGET_USER [--token YOUR_TOKEN]
       --max-size int          Limit the size of repositories to scan (in MB) (only for deep scan) (default 150)
       --exclude-repo string   Exclude repos from deep scan (comma-separated list, only for deep scan)
   -r, --refresh               Refresh the cache (only for deep scan)
+  -s, --show-source           Show where the information (authors, emails, etc) were found (only for deep scan)
   -c, --only-commits          Display only commits with author info
-  -s, --silent                Suppress all non-essential output
+  -S, --silent                Suppress all non-essential output
   -j, --json string           Write results to specified JSON file
 ```
 
