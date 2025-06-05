@@ -14,14 +14,16 @@ import (
 )
 
 type AuthorOccurrence struct {
-	Name    string
-	Email   string
-	FoundIn []string
+	Name        string
+	Levenshtein int
+	Email       string
+	FoundIn     []string
 }
 
 type EmailOccurrence struct {
-	Email   string
-	FoundIn []string
+	Email       string
+	Levenshtein int
+	FoundIn     []string
 }
 
 type DeepResult struct {
@@ -37,7 +39,7 @@ type Repositorie struct {
 	Size       int
 }
 
-func findEmailsAndOccurrencesInDir(rootPath string) ([]EmailOccurrence, error) {
+func findEmailsAndOccurrencesInDir(rootPath string, username string) ([]EmailOccurrence, error) {
 	emailLocations := make(map[string]map[string]bool)
 	emailRegex := regexp.MustCompile(`[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}`)
 	normalizedRootPath := filepath.Clean(rootPath)
@@ -87,7 +89,10 @@ func findEmailsAndOccurrencesInDir(rootPath string) ([]EmailOccurrence, error) {
 		for path := range pathSet {
 			paths = append(paths, path)
 		}
-		results = append(results, EmailOccurrence{Email: email, FoundIn: paths})
+		results = append(results, EmailOccurrence{
+			Email: email, FoundIn: paths,
+			Levenshtein: levenshteinDistance(username, strings.SplitN(email, "@", 2)[0]),
+		})
 	}
 
 	return results, nil
@@ -256,9 +261,10 @@ func (r Recon) Deep(username, excludeRepos string, refresh bool) (response DeepR
 						}
 
 						authorOccurrences = append(authorOccurrences, AuthorOccurrence{
-							Name:    authorName,
-							Email:   authorEmail,
-							FoundIn: []string{repoIdentifier},
+							Name:        authorName,
+							Email:       authorEmail,
+							FoundIn:     []string{repoIdentifier},
+							Levenshtein: levenshteinDistance(username, authorName),
 						})
 						mapAuthorToIndex[trimmedLine] = len(authorOccurrences) - 1
 					}
@@ -266,27 +272,41 @@ func (r Recon) Deep(username, excludeRepos string, refresh bool) (response DeepR
 			}
 		}
 	}
+	slices.SortFunc(authorOccurrences, func(a, b AuthorOccurrence) int {
+		if a.Levenshtein != b.Levenshtein {
+			return a.Levenshtein - b.Levenshtein
+		}
+		return 1
+	})
 	for _, author := range authorOccurrences {
 		if r.ShowSource {
 			r.PrintInfo(
 				"Author",
 				author.Name+" - "+author.Email,
 				"found in:"+strings.Join(author.FoundIn, ", "),
+				"Levenshtein distance: "+fmt.Sprint(author.Levenshtein),
 			)
 		} else {
 			r.PrintInfo(
 				"Author",
 				author.Name+" - "+author.Email,
+				fmt.Sprintf("%d", author.Levenshtein),
 			)
 		}
 	}
 
 	r.PrintInfo("INFO", "Now searching for emails in cloned repositories, this may take a while...")
-	emails, err := findEmailsAndOccurrencesInDir(tmp_folder)
+	emails, err := findEmailsAndOccurrencesInDir(tmp_folder, username)
 	if err != nil {
 		r.Logger.Error("Failed to find emails in directory", "err", err)
 		return
 	}
+	slices.SortFunc(emails, func(a, b EmailOccurrence) int {
+		if a.Levenshtein != b.Levenshtein {
+			return a.Levenshtein - b.Levenshtein
+		}
+		return 1
+	})
 
 	if len(emails) == 0 {
 		r.PrintInfo("INFO", "No emails found")
@@ -294,9 +314,9 @@ func (r Recon) Deep(username, excludeRepos string, refresh bool) (response DeepR
 		r.PrintInfo("INFO", "Found emails:")
 		for _, email := range emails {
 			if r.ShowSource {
-				r.PrintInfo("Email", email.Email, "found in:"+strings.Join(email.FoundIn, ", "))
+				r.PrintInfo("Email", email.Email, "found in:"+strings.Join(email.FoundIn, ", "), "Levenshtein distance: "+fmt.Sprint(email.Levenshtein))
 			} else {
-				r.PrintInfo("Email", email.Email)
+				r.PrintInfo("Email", email.Email, fmt.Sprintf("%d", email.Levenshtein))
 			}
 		}
 	}

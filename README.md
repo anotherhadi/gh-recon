@@ -28,6 +28,7 @@ Finds hidden emails in commit history, previous usernames, friends, other GitHub
 - Find Github accounts using an email address
 - Export results to JSON
 - Deep scan option (clone repositories, regex search, analyze licenses, etc.)
+- Levenshtein distance for matching usernames and emails
 
 ## ⚠️ Disclaimer
 
