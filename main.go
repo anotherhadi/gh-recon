@@ -66,7 +66,7 @@ func main() {
 		&maxDistance,
 		"max-distance",
 		"m",
-		5,
+		20,
 		"Maximum Levenshtein distance for matching usernames & emails (only for deep scan)",
 	)
 	flag.BoolVarP(
