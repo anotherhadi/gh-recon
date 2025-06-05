@@ -279,6 +279,9 @@ func (r Recon) Deep(username, excludeRepos string, refresh bool) (response DeepR
 		return 1
 	})
 	for _, author := range authorOccurrences {
+		if author.Levenshtein > r.MaxDistance {
+			continue
+		}
 		if r.ShowSource {
 			r.PrintInfo(
 				"Author",
@@ -313,6 +316,9 @@ func (r Recon) Deep(username, excludeRepos string, refresh bool) (response DeepR
 	} else {
 		r.PrintInfo("INFO", "Found emails:")
 		for _, email := range emails {
+			if email.Levenshtein > r.MaxDistance {
+				continue
+			}
 			if r.ShowSource {
 				r.PrintInfo("Email", email.Email, "found in:"+strings.Join(email.FoundIn, ", "), "Levenshtein distance: "+fmt.Sprint(email.Levenshtein))
 			} else {

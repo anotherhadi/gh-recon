@@ -93,6 +93,7 @@ gh-recon --username TARGET_USER [--token YOUR_TOKEN]
       --exclude-repo string   Exclude repos from deep scan (comma-separated list, only for deep scan)
   -r, --refresh               Refresh the cache (only for deep scan)
   -s, --show-source           Show where the information (authors, emails, etc) were found (only for deep scan)
+  -m, --max-distance int      Maximum Levenshtein distance for matching usernames & emails (only for deep scan) (default 5)
   -c, --only-commits          Display only commits with author info
   -S, --silent                Suppress all non-essential output
   -j, --json string           Write results to specified JSON file

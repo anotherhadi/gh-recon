@@ -23,6 +23,7 @@ func main() {
 	var maxRepoSize int
 	var refresh bool
 	var showSource bool
+	var maxDistance int
 
 	// FLAGS
 	flag.StringVarP(&username, "username", "u", "", "GitHub username to analyze")
@@ -61,6 +62,13 @@ func main() {
 		false,
 		"Show where the information (authors, emails, etc) were found (only for deep scan)",
 	)
+	flag.IntVarP(
+		&maxDistance,
+		"max-distance",
+		"m",
+		5,
+		"Maximum Levenshtein distance for matching usernames & emails (only for deep scan)",
+	)
 	flag.BoolVarP(
 		&onlyCommitsLeak,
 		"only-commits",
@@ -89,6 +97,7 @@ func main() {
 		Silent:      silent,
 		JsonFile:    jsonFile,
 		MaxRepoSize: maxRepoSize,
+		MaxDistance: maxDistance,
 		ShowSource:  showSource,
 	}
 

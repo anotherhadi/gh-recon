@@ -14,5 +14,6 @@ type Recon struct {
 	Silent      bool
 	JsonFile    string
 	MaxRepoSize int
+	MaxDistance int
 	ShowSource  bool
 }
