@@ -13,7 +13,7 @@
         (system: f system (import nixpkgs { inherit system; }));
 
       pname = "gh-recon";
-      version = "1.3.0";
+      version = "1.3.1";
 
       ldflags = [ "-s" "-w" ];
 
