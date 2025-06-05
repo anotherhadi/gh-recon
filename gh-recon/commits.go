@@ -80,7 +80,7 @@ func (r Recon) Commits(username string) (response []CommitsResult) {
 			r.PrintInfo(
 				"Author",
 				result.Name+" - "+result.Email,
-				"first from "+result.FirstFoundIn+" (x"+fmt.Sprint(result.Occurences)+")",
+				"first from "+result.FirstFoundIn+" (x"+fmt.Sprint(result.Occurrences)+")",
 			)
 		} else {
 			r.PrintInfo(
