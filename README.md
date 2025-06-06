@@ -12,6 +12,20 @@
     <a href="https://goreportcard.com/report/github.com/anotherhadi/gh-recon"><img src="https://goreportcard.com/badge/github.com/anotherhadi/gh-recon" alt="GoReportCard"></a>
 </p>
 
+- [🧾 Project Overview](#-project-overview)
+- [🚀 Features](#-features)
+- [⚠️ Disclaimer](#-disclaimer)
+- [📋 Prerequisites](#-prerequisites)
+- [📦 Installation](#-installation)
+  - [With Go](#with-go)
+  - [With Nix/NixOS](#with-nixnixos)
+- [🧪 Usage](#-usage)
+  - [Flags](#flags)
+- [💡 Examples](#-examples)
+- [🕵️‍♂️ Cover your tracks](#-cover-your-tracks)
+- [🤝 Contributing](#-contributing)
+- [🙏 Credits](#-credits)
+
 ## 🧾 Project Overview
 
 Retrieves and aggregates public OSINT data about a GitHub user using Go and the GitHub API.
