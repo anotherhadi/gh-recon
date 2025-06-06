@@ -15,7 +15,6 @@
 - [🧾 Project Overview](#-project-overview)
 - [🚀 Features](#-features)
 - [⚠️ Disclaimer](#-disclaimer)
-- [📋 Prerequisites](#-prerequisites)
 - [📦 Installation](#-installation)
   - [With Go](#with-go)
   - [With Nix/NixOS](#with-nixnixos)
@@ -47,11 +46,6 @@ Finds hidden emails in commit history, previous usernames, friends, other GitHub
 ## ⚠️ Disclaimer
 
 This tool is intended for educational purposes only. Use responsibly and ensure you have permission to access the data you are querying.
-
-## 📋 Prerequisites
-
-- Go 1.18+
-- GitHub Personal Access Token (recommended for higher rate limits): Create a GitHub API token with no permissions/no scope. This will be equivalent to public GitHub access, but it will allow access to use the GitHub Search API.
 
 ## 📦 Installation
 
