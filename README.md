@@ -125,3 +125,12 @@ You can also use a tool like [TruffleHog](github.com/trufflesecurity/trufflehog)
 ## 🤝 Contributing
 
 Feel free to contribute! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+## 🙏 Credits
+
+Some features and ideas in this project were inspired by the following tools:
+
+- [gitrecon](https://github.com/GONZOsint/gitrecon) by GONZOsint
+- [gitfive](https://github.com/mxrch/gitfive) by mxrch
+
+Big thanks to their authors for sharing their work with the community.
